@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Diary</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script th:src="@{/js/script.js}"></script>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+    
+    <div th:replace="fragments/nav :: nav"></div>
+    
+    <th:block layout:fragment="content"></th:block>
+    
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

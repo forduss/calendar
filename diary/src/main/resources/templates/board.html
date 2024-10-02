@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Board</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+    <div layout:fragment="content" id="contents">
+        <div id="left"></div>
+        <div id="main" class="align-center">
+            <h1 th:text="${board.board_name}"></h1>
+            
+            <div class="action-search-container">
+                <div sec:authorize="isAuthenticated()" th:if="${board_no != 2}">
+                    <input type="button" class="action-button" value="글쓰기" th:onclick="|location.href='/write/' + ${board_no}|">
+                </div>
+                
+                <div th:if="${#authorization.expression('hasRole(''ADMIN'')') and board_no == 2}">
+                    <input type="button" class="action-button" value="글쓰기" th:onclick="|location.href='/write/' + ${board_no}|">
+                </div>
+                
+                <div class="search">
+                    <input type="text" name="keyword" id="keyword" placeholder="검색어 입력">
+                    <input type="button" class="search-button" value="검색" th:data-boardno="${board_no}" onclick="search(this)">
+                </div>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th class="size-50">글번호</th>
+                        <th class="size-400">글제목</th>
+                        <th class="size-60">작성자</th>
+                        <th class="size-100">작성일</th>
+                        <th class="size-50">조회수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="dto : ${list}">
+                        <td class="align-center" th:text="${dto.post_no}"></td>
+                        <td class="padding-left-5">
+                            <a th:text="${dto.title}" th:href="@{'/view/' + ${dto.post_no}}"></a>
+                        </td>
+                        <td class="align-center" th:text="${dto.userid}"></td>
+                        <td class="align-center" th:text="${dto.create_date}"></td>
+                        <td class="align-center" th:text="${dto.hit_cnt}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <br>
+            
+            <div class="pagination">
+                <ul class="page">
+                    <li th:if="${page.existPrevPage}" class="prev">
+                        <a class="page_link" th:href="@{'/board/' + ${board_no} + '/' + ${page.startPage - 1} + '?keyword=' + ${page.keyword}}">이전</a>
+                    </li>
+                    <li th:each="number : ${#numbers.sequence(page.startPage, page.endPage)}" class="page_item">
+                        <a class="page_link_bold" th:if="${page.page == number}" 
+                           th:href="@{'/board/' + ${board_no} + '/' + ${number} + '?keyword=' + ${page.keyword}}"
+                           th:text="${number}"></a>
+                        <a class="page_link" th:if="${page.page != number}" 
+                           th:href="@{'/board/' + ${board_no} + '/' + ${number} + '?keyword=' + ${page.keyword}}"
+                           th:text="${number}"></a>
+                    </li>
+                    <li th:if="${page.existNextPage}" class="next">
+                        <a class="page_link" th:href="@{'/board/' + ${board_no} + '/' + ${page.endPage + 1} + '?keyword=' + ${page.keyword}}">다음</a>  
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="right"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<html layout:decorate="~{layout}">
+	<div layout:fragment="content" id="contents">	   
+   	   <div id="contents">
+	    <div id="left">
+	    </div>
+	    <div id="main">
+	        <br><h1>회원정보</h1><br>
+			<form name="memberForm" action="member" method="post">
+		    	<table>
+		            <tr>
+		            	<td>
+			                <label for="userid">아이디</label>
+			            </td>
+			            <td>
+			                <input type="text" id="userid" name="userid" th:value="${member.userid}" readonly>
+			            </td>
+			       </tr>
+			       <tr>
+			            <td>
+			                <label for="userpwd">비밀번호</label>
+			            </td>
+			            <td>
+			                <input type="password" id="userpw" name="userpw" th:value="${member.userpw}">
+			            </td>
+		           </tr>
+		           <tr>
+			            <td>
+			                <label for="userpwd">이름</label>
+			            </td>
+			            <td>
+			                <input type="text" id="username" name="username" th:value="${member.username}">
+			            </td>
+		           </tr>
+		           <tr>
+			            <td>
+			                <label for="birthdate">생년월일</label>
+			            </td>
+			            <td th:text="${member.birthdate}">
+			                <!-- 
+			                <input type="date" id="birthdate" name="birthdate" th:value="${member.birthdate}" disabled>
+			                -->
+			            </td>
+		           </tr>
+		           <tr>
+			            <td>
+			                <label for="gender">성별</label>
+			            </td>
+			            <td th:text="${member.gender}">
+			                <!-- <input type="radio" name="gender" id="gender" th:th:value="${member.gender}" disabled> -->
+			            </td>
+		           </tr>
+		           <tr>
+			            <td>
+			                <label for="telnumber">전화번호</label>
+			            </td>
+			            <td>
+			                <input type="text" id="telnumber" name="telnumber" th:value="${member.telnumber}">
+			            </td>
+		           </tr>
+		           <tr>
+			            <td>
+			                <label for="addr">주소</label>
+			            </td>
+			            <td>
+			                <input type="text" id="addr" name="addr" th:value="${member.addr}">
+			            </td>
+		           </tr>
+		        </table>
+		           <br>
+		           <div class="form-buttons">
+			           <input type="button" value="수정" onclick="checkMemberForm()">
+			           <input type="button" value="탈퇴" onclick="location.href='/unregist'">
+			           <input type="button" value="홈으로" onclick="location.href='/'">
+		      	   </div>
+		      </form>
+		      </div>
+	    <div id="right">
+	    </div>
+	    </div>
+	    </div>
+</body>
+</html>

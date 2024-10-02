@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 작성</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div layout:fragment="content" id="contents">
+        <div id="left">
+        </div>
+        <div id="main">
+            <h1 th:text="${board.board_name}"></h1>
+            <form name="writeForm" action="/write" method="post" enctype="multipart/form-data" class="write_form">
+                <table>
+                    <tr>
+                        <td>글제목</td>
+                        <td><input type="text" name="title"></td>
+                    </tr>
+                    <tr>
+                        <td>작성자</td>
+                        <td><input type="text" name="userid" th:value="${#authentication.name}"></td>
+                    </tr>
+                    <tr>
+                        <td>내용</td>
+                        <td><textarea name="content"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>첨부파일</td>
+                        <td>
+                            <input type="button" value="파일추가" onclick="addFile(this)">
+                        </td>
+                    </tr>
+                </table>
+                <div class="write_buttons">
+                    <input type="hidden" name="board_no" th:value="${board.board_no}">
+                    <input type="submit" value="저장">
+                    <input type="reset" value="다시쓰기">
+                    <input type="button" value="글목록" th:onclick="|location.href='/board/' + ${board.board_no}|">
+                </div>
+            </form>
+        </div>
+        <div id="right">
+        </div>
+    </div>
+</body>
+</html>

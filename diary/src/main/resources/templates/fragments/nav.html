@@ -1,0 +1,61 @@
+<nav>
+    <ul id="menu">
+        <li><a th:href="@{/}">홈</a></li>
+        <li th:each="board : ${menu}" th:if="${#authorization.expression('hasRole(''USER'')')}">
+            <a th:href="'/board/' + ${board.board_no}" th:text="${board.board_name}"></a>
+        </li>
+        <li th:each="board : ${menu}" th:if="${#authorization.expression('hasRole(''MANAGER'')')}">
+            <a th:href="'/board/' + ${board.board_no}" th:text="${board.board_name}"></a>
+        </li>
+        <li th:each="board : ${menu}" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <a th:href="'/board/' + ${board.board_no}" th:text="${board.board_name}"></a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''USER'')')}">
+        	<a th:href="@{/calendar}">개인캘린더</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''MANAGER'')')}">
+            <a th:href="@{/calendar}">개인캘린더</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <a th:href="@{/calendar}">개인캘린더</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''USER'')')}">
+        	<a th:href="@{/project}">프로젝트</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''MANAGER'')')}">
+        	<a th:href="@{/project}">프로젝트</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        	<a th:href="@{/project}">프로젝트</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''USER'')')}">
+        	<a href="/inquire">문의하기</a>
+        </li>
+        
+        <li th:if="${#authorization.expression('hasRole(''USER'')')}">
+            <a th:href="@{/member}">회원정보</a>
+        </li>
+        
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <a th:href="@{/manage}">회원관리</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+            <a th:href="@{/manageBoard}">게시판관리</a>
+        </li>
+        <li th:if="${#authorization.expression('hasRole(''MANAGER'')')}">
+            <a th:href="@{/manageBoard}">게시판관리</a>
+        </li>
+        <li sec:authorize="isAuthenticated()">
+            <a th:href="@{/logout}">로그아웃</a>
+        </li>
+        <li sec:authorize="isAnonymous()">
+            <a th:href="@{/login}">로그인</a>
+        </li>
+        <li sec:authorize="isAnonymous()">
+            <a th:href="@{/join}">회원가입</a>
+        </li>
+         <li sec:authorize="isAuthenticated()">
+            <span th:text="${#authentication.name} + 님"></span>
+        </li>
+    </ul>
+</nav>
